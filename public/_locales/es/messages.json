@@ -1,0 +1,41 @@
+{
+  "extName": {
+    "message": "Foco Diario"
+  },
+  "extDescription": {
+    "message": "Convierte tu feed en una edición finita de periódico: una sola portada al día, tranquilidad y cero dopamina de scroll infinito."
+  },
+  "paperTagline": {
+    "message": "Tu feed en calma, sin la dopamina del scroll."
+  },
+  "paperMembership": {
+    "message": "Gratis"
+  },
+  "paperLoading": {
+    "message": "Cargando edición…"
+  },
+  "paperEmpty": {
+    "message": "0 items extraídos. Verifica los selectores o recarga con el feed cargado."
+  },
+  "paperEnd": {
+    "message": "Fin del diario."
+  },
+  "lightboxClose": {
+    "message": "Cerrar"
+  },
+  "paperStale": {
+    "message": "Edición anterior: no se pudo actualizar el diario."
+  },
+  "paperReprint": {
+    "message": "Reimprimir edición"
+  },
+  "paperReprintLimited": {
+    "message": "Ya reimprimiste hoy. Vuelve mañana."
+  },
+  "optionsTitle": {
+    "message": "Foco Diario — Ajustes"
+  },
+  "optionsPending": {
+    "message": "Ajustes pendientes: licencia, proveedor de IA y edición."
+  }
+}

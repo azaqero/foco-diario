@@ -1,0 +1,448 @@
+/* Foco Diario - broadsheet styles (v0.4.0)
+ * Editorial front page: 2x2 hero, two secondary stories, briefs. Responsive grid.
+ */
+
+/* The opaque, fixed overlay fully covers the feed. Never hide [aria-posinset]
+ * with display:none: collapsing the virtualized feed to zero height makes
+ * Facebook's infinite-scroll sentinel always "visible", which loads forever
+ * (unbounded memory/CPU). */
+
+/* Hide the native site from the very first paint (document_start) so Facebook
+ * never flashes before the paper mounts. visibility keeps layout intact, so the
+ * virtualized feed does not collapse. */
+html.fp-booting,
+html.fp-booting body {
+  background: #f7f6f2;
+}
+html.fp-booting body > *:not(#focus-paper-root),
+html.focus-paper-active body > *:not(#focus-paper-root) {
+  visibility: hidden !important;
+}
+
+/* Only the paper scrolls. The overlay is fixed, so the underlying Facebook
+ * document scrollbar would otherwise sit next to the paper's own. */
+html.focus-paper-active,
+html.focus-paper-active body {
+  overflow: hidden !important;
+}
+
+#focus-paper-root {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483000;
+  overflow-y: auto;
+  background: #f7f6f2;
+  color: #14110d;
+  padding: 26px 32px 44px;
+  font-family: Georgia, "Times New Roman", serif;
+  line-height: 1.45;
+}
+
+#focus-paper-root .fp-masthead,
+#focus-paper-root .fp-end,
+#focus-paper-root .fp-empty {
+  max-width: 1400px;
+  margin-inline: auto;
+}
+
+#focus-paper-root .fp-masthead {
+  border-bottom: 3px double #14110d;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+#focus-paper-root .fp-name {
+  font-size: 38px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+#focus-paper-root .fp-date {
+  font-family: "Courier New", monospace;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #55504a;
+}
+
+/* Subtitle row: URL on the left, tagline centered on the same line */
+#focus-paper-root .fp-subrow {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+#focus-paper-root .fp-url {
+  justify-self: start;
+  font-family: "Courier New", monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #6a655e;
+  text-decoration: none;
+}
+#focus-paper-root .fp-url:hover {
+  text-decoration: underline;
+}
+
+#focus-paper-root .fp-tagline {
+  margin: 0;
+  font-size: 13px;
+  font-style: italic;
+  color: #55504a;
+}
+
+/* Bottom row: date + membership, centered */
+#focus-paper-root .fp-meta {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+  font-family: "Courier New", monospace;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #55504a;
+}
+#focus-paper-root .fp-meta-sep {
+  color: #8a857d;
+}
+
+/* Editorial grid */
+#focus-paper-root .fp-items {
+  width: 100%;
+  max-width: 1400px;
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px 28px;
+  align-items: start;
+}
+
+#focus-paper-root .fp-item {
+  border-top: 1px solid #14110d;
+  padding-top: 10px;
+  cursor: pointer;
+}
+#focus-paper-root .fp-item:focus-visible {
+  outline: 2px solid #14110d;
+  outline-offset: 3px;
+}
+
+#focus-paper-root .fp-item--hero {
+  grid-column: span 2;
+  grid-row: span 2;
+  border-top: none;
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+}
+
+#focus-paper-root .fp-item--wide {
+  grid-column: span 2;
+}
+
+/* On wide screens the first wide card sits flush with the masthead: its top
+ * rule would duplicate the header's bottom rule. */
+@media (min-width: 901px) {
+  #focus-paper-root .fp-items > .fp-item:nth-child(2) {
+    border-top: none;
+  }
+}
+
+/* Typographic hierarchy */
+#focus-paper-root .fp-item--hero .fp-headline {
+  font-size: 32px;
+  line-height: 1.15;
+}
+#focus-paper-root .fp-item--wide .fp-headline {
+  font-size: 23px;
+}
+#focus-paper-root .fp-item--brief .fp-headline {
+  font-size: 17px;
+}
+
+#focus-paper-root .fp-headline {
+  margin: 0 0 5px;
+  font-weight: 700;
+  font-style: normal;
+}
+
+#focus-paper-root .fp-byline {
+  font-family: "Courier New", monospace;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #6a655e;
+  margin-bottom: 8px;
+}
+
+#focus-paper-root .fp-photo {
+  display: block;
+  width: 100%;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.1);
+  margin-bottom: 8px;
+}
+#focus-paper-root .fp-item--hero .fp-photo {
+  flex: 1 1 auto;
+  min-height: 180px;
+  max-height: none;
+}
+#focus-paper-root .fp-item--wide .fp-photo {
+  max-height: 220px;
+}
+#focus-paper-root .fp-item--brief .fp-photo {
+  max-height: 140px;
+}
+
+#focus-paper-root .fp-body {
+  margin: 0;
+  white-space: pre-wrap;
+  font-size: 15px;
+  font-weight: 400;
+  font-style: normal;
+  min-height: 4.35em; /* at least ~3 lines */
+}
+#focus-paper-root .fp-item--hero .fp-body {
+  font-size: 17px;
+}
+#focus-paper-root .fp-item--brief .fp-body {
+  font-size: 14px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+  overflow: hidden;
+}
+
+#focus-paper-root .fp-video {
+  display: inline-block;
+  margin-top: 6px;
+  font-family: "Courier New", monospace;
+  font-size: 10px;
+  color: #6a655e;
+}
+
+#focus-paper-root .fp-end {
+  text-align: center;
+  font-family: "Courier New", monospace;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #55504a;
+  border-top: 1px solid #14110d;
+  padding-top: 14px;
+  margin-top: 20px;
+}
+
+#focus-paper-root .fp-empty {
+  font-family: "Courier New", monospace;
+  font-size: 13px;
+  color: #8a3b2e;
+  text-align: center;
+}
+
+#focus-paper-root .fp-stale {
+  max-width: 1400px;
+  margin: 0 auto 16px;
+  padding: 8px 12px;
+  border: 1px solid #8a3b2e;
+  color: #8a3b2e;
+  font-family: "Courier New", monospace;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-align: center;
+}
+
+#focus-paper-root .fp-actions {
+  max-width: 1400px;
+  margin: 18px auto 0;
+  text-align: center;
+}
+
+#focus-paper-root .fp-reprint {
+  border: 1px solid #14110d;
+  background: transparent;
+  color: #14110d;
+  font-family: "Courier New", monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+#focus-paper-root .fp-reprint:hover {
+  background: #14110d;
+  color: #f7f6f2;
+}
+#focus-paper-root .fp-reprint:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+#focus-paper-root .fp-loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Courier New", monospace;
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #55504a;
+}
+
+/* Lightbox: post detail */
+#focus-paper-root.fp-lb-open {
+  overflow: hidden;
+}
+
+#focus-paper-root .fp-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 48px 20px;
+  overflow-y: auto;
+}
+#focus-paper-root .fp-lightbox[hidden] {
+  display: none;
+}
+
+#focus-paper-root .fp-lightbox-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 17, 13, 0.62);
+}
+
+#focus-paper-root .fp-lightbox-panel {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 720px;
+  margin: auto;
+  background: #f7f6f2;
+  color: #14110d;
+  padding: 40px 44px 44px;
+  border-top: 3px double #14110d;
+  box-shadow: 0 14px 50px rgba(0, 0, 0, 0.4);
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+#focus-paper-root .fp-lightbox-close {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  border: 0;
+  background: transparent;
+  color: #14110d;
+  font-size: 26px;
+  line-height: 1;
+  padding: 4px 8px;
+  cursor: pointer;
+}
+#focus-paper-root .fp-lightbox-close:hover {
+  color: #8a3b2e;
+}
+
+#focus-paper-root .fp-lb-headline {
+  margin: 0 30px 8px 0;
+  font-size: 30px;
+  line-height: 1.15;
+}
+
+#focus-paper-root .fp-lb-byline {
+  font-family: "Courier New", monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #6a655e;
+  margin-bottom: 16px;
+}
+
+#focus-paper-root .fp-lb-photo {
+  display: block;
+  width: 100%;
+  max-height: 420px;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.1);
+  margin-bottom: 16px;
+}
+#focus-paper-root .fp-lb-photo[hidden] {
+  display: none;
+}
+
+#focus-paper-root .fp-lb-body {
+  margin: 0;
+  white-space: pre-wrap;
+  font-size: 17px;
+  line-height: 1.55;
+}
+
+@media (max-width: 900px) {
+  #focus-paper-root .fp-items {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  #focus-paper-root .fp-item--hero {
+    grid-column: span 2;
+    grid-row: auto;
+  }
+  #focus-paper-root .fp-item--wide {
+    grid-column: span 2;
+  }
+  #focus-paper-root .fp-item--hero .fp-headline {
+    font-size: 27px;
+  }
+  #focus-paper-root .fp-item--hero .fp-photo {
+    max-height: 280px;
+  }
+}
+
+@media (max-width: 640px) {
+  #focus-paper-root {
+    padding: 20px 16px 40px;
+  }
+  #focus-paper-root .fp-items {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  #focus-paper-root .fp-item--hero,
+  #focus-paper-root .fp-item--wide {
+    grid-column: auto;
+  }
+  #focus-paper-root .fp-name {
+    font-size: 30px;
+  }
+  #focus-paper-root .fp-subrow {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 4px;
+  }
+  #focus-paper-root .fp-url {
+    justify-self: center;
+  }
+  #focus-paper-root .fp-item--hero .fp-headline {
+    font-size: 24px;
+  }
+  #focus-paper-root .fp-lightbox {
+    padding: 0;
+  }
+  #focus-paper-root .fp-lightbox-panel {
+    max-width: none;
+    min-height: 100%;
+    padding: 28px 20px 40px;
+    border-top-width: 0;
+  }
+  #focus-paper-root .fp-lb-headline {
+    font-size: 24px;
+  }
+}

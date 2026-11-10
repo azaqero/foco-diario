@@ -1,0 +1,31 @@
+{
+  "name": "foco-diario",
+  "private": true,
+  "version": "0.2.0",
+  "license": "MIT",
+  "type": "module",
+  "description": "Rewrite the feed as a finite, text-only newspaper front page.",
+  "engines": {
+    "node": ">=26"
+  },
+  "scripts": {
+    "dev": "wxt -b chrome",
+    "build": "wxt build -b chrome",
+    "zip": "wxt zip -b chrome",
+    "compile": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "postinstall": "wxt prepare"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "jsdom": "^31.0.0",
+    "typescript": "^5.9.3",
+    "vite": "^7.0.0",
+    "vitest": "^5.1.0",
+    "wxt": "^0.21.5"
+  },
+  "allowScripts": {
+    "esbuild": true
+  }
+}

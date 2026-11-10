@@ -1,0 +1,41 @@
+{
+  "extName": {
+    "message": "Foco Diario"
+  },
+  "extDescription": {
+    "message": "Turns your feed into a finite newspaper edition: one front page a day, calm and zero infinite-scroll dopamine."
+  },
+  "paperTagline": {
+    "message": "Your feed, calm: no dopamine from the scroll."
+  },
+  "paperMembership": {
+    "message": "Free"
+  },
+  "paperLoading": {
+    "message": "Loading edition…"
+  },
+  "paperEmpty": {
+    "message": "0 items extracted. Check the selectors or reload with the feed loaded."
+  },
+  "paperEnd": {
+    "message": "End of the paper."
+  },
+  "lightboxClose": {
+    "message": "Close"
+  },
+  "paperStale": {
+    "message": "Previous edition: the paper could not be refreshed."
+  },
+  "paperReprint": {
+    "message": "Reprint edition"
+  },
+  "paperReprintLimited": {
+    "message": "You already reprinted today. Come back tomorrow."
+  },
+  "optionsTitle": {
+    "message": "Foco Diario — Settings"
+  },
+  "optionsPending": {
+    "message": "Pending settings: license, AI provider and edition."
+  }
+}
